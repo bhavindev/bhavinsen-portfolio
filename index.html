@@ -212,7 +212,12 @@
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--bd);
-      transition: padding .3s;
+      transition: padding .3s, background .3s, height .3s;
+    }
+
+    #nav.nav-op {
+      height: 100vh;
+      background: rgba(2, 2, 5, .98);
     }
 
     #nav.slim {
@@ -228,12 +233,10 @@
       justify-content: space-between;
     }
 
-    .nlogo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.7rem;
-      letter-spacing: 2.5px;
-      text-decoration: none;
-      color: #fff;
+    .nlogo,
+    .burger {
+      position: relative;
+      z-index: 9001;
     }
 
     .nlogo .na {
@@ -300,7 +303,19 @@
       height: 2.5px;
       background: #fff;
       border-radius: 2px;
-      transition: .3s;
+      transition: transform .3s, opacity .3s;
+    }
+
+    .burger.op span:nth-child(1) {
+      transform: translateY(8.5px) rotate(45deg);
+    }
+
+    .burger.op span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger.op span:nth-child(3) {
+      transform: translateY(-8.5px) rotate(-45deg);
     }
 
     section {
@@ -1729,27 +1744,48 @@
       .nitems {
         display: none;
         flex-direction: column;
-        position: fixed;
-        top: 70px;
+        position: absolute;
+        top: 0;
         left: 0;
         right: 0;
-        bottom: 0;
-        background: rgba(2, 2, 5, .99);
-        backdrop-filter: blur(38px);
-        padding: 3rem;
+        height: 100vh;
+        background: transparent;
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        padding: 7rem 2rem 3rem;
         align-items: center;
         justify-content: center;
         z-index: 8999;
-        gap: 0;
+        gap: .5rem;
+        overflow-y: auto;
       }
 
       .nitems.op {
         display: flex;
       }
 
+      .nitems li {
+        opacity: 0;
+        transform: translateY(20px);
+        width: 100%;
+        text-align: center;
+      }
+
+      .nitems.op li {
+        animation: mFadeIn .4s forwards;
+      }
+
+      @keyframes mFadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       .nitems a {
-        font-size: 1.5rem;
-        padding: 1.1rem 2.5rem;
+        font-size: 1.7rem;
+        padding: .8rem 2rem;
+        display: inline-block;
       }
     }
 
@@ -1870,14 +1906,14 @@
       <a class="nlogo" href="#home">BHAVIN&nbsp;<span class="na">SEN</span></a>
       <button class="burger" id="burger"><span></span><span></span><span></span></button>
       <ul class="nitems" id="ni">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#skills">Stack</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#testi">Reviews</a></li>
-        <li><a href="#contact" class="ncta">Let's Talk</a></li>
+        <li style="animation-delay: .05s;"><a href="#home">Home</a></li>
+        <li style="animation-delay: .1s;"><a href="#about">About</a></li>
+        <li style="animation-delay: .15s;"><a href="#services">Services</a></li>
+        <li style="animation-delay: .2s;"><a href="#skills">Stack</a></li>
+        <li style="animation-delay: .25s;"><a href="#work">Work</a></li>
+        <li style="animation-delay: .3s;"><a href="#process">Process</a></li>
+        <li style="animation-delay: .35s;"><a href="#testi">Reviews</a></li>
+        <li style="animation-delay: .4s;"><a href="#contact" class="ncta">Let's Talk</a></li>
       </ul>
     </div>
   </nav>
@@ -2874,8 +2910,17 @@
       });
     });
 
-    document.getElementById('burger').addEventListener('click', () => document.getElementById('ni').classList.toggle('op'));
-    document.querySelectorAll('#ni a').forEach(a => a.addEventListener('click', () => document.getElementById('ni').classList.remove('op')));
+    const burger = document.getElementById('burger'), ni = document.getElementById('ni'), navbar = document.getElementById('nav');
+    burger.addEventListener('click', () => {
+      const isOp = ni.classList.toggle('op');
+      burger.classList.toggle('op', isOp);
+      navbar.classList.toggle('nav-op', isOp);
+    });
+    document.querySelectorAll('#ni a').forEach(a => a.addEventListener('click', () => {
+      ni.classList.remove('op');
+      burger.classList.remove('op');
+      navbar.classList.remove('nav-op');
+    }));
 
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
