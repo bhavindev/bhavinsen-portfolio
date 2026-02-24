@@ -46,7 +46,6 @@
       background: var(--bk);
       color: var(--tx);
       overflow-x: hidden;
-      cursor: none;
     }
 
     ::-webkit-scrollbar {
@@ -62,27 +61,42 @@
       border-radius: 4px;
     }
 
-    #cd {
+    #cd,
+    #cr {
       position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s, border-color .2s, opacity .3s;
+    }
+
+    #cd {
       width: 8px;
       height: 8px;
       background: var(--v3);
       border-radius: 50%;
-      pointer-events: none;
-      z-index: 99999;
-      transform: translate(-50%, -50%);
     }
 
     #cr {
-      position: fixed;
       width: 38px;
       height: 38px;
       border: 2px solid rgba(167, 139, 250, .5);
       border-radius: 50%;
-      pointer-events: none;
       z-index: 99998;
-      transform: translate(-50%, -50%);
-      transition: width .2s, height .2s, border-color .2s;
+    }
+
+    @media (max-width: 1024px) {
+
+      #cd,
+      #cr {
+        display: none !important;
+      }
+    }
+
+    @media (min-width: 1025px) {
+      body {
+        cursor: none;
+      }
     }
 
     .orbs {
@@ -177,7 +191,24 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 2rem;
+      margin-bottom: 4px;
+    }
+
+    .lsub {
+      /* font-family: 'Fira Code', monospace; */
+      font-size: .85rem;
+      letter-spacing: 1px;
+      color: var(--mt);
+      text-transform: uppercase;
+      margin-bottom: 2.2rem;
+      opacity: 0;
+      animation: lfadeIn .8s ease forwards .4s;
+    }
+
+    @keyframes lfadeIn {
+      to {
+        opacity: 1;
+      }
     }
 
     .ltrack {
@@ -486,6 +517,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      min-height: 45px;
     }
 
     .hdesc {
@@ -1440,12 +1472,53 @@
       height: 46px;
       min-width: 46px;
       border-radius: 10px;
-      background: linear-gradient(135deg, rgba(124, 58, 237, .19), rgba(34, 211, 238, .12));
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
-      color: var(--v3);
+      font-size: 1.15rem;
+      background: var(--card);
+      border: 1px solid var(--bd);
+      transition: transform .2s, border-color .2s;
+    }
+
+    .ci:hover .ciic {
+      transform: scale(1.05);
+    }
+
+    .ciic.c-gm {
+      color: #ea4335;
+      background: rgba(234, 67, 53, .1);
+      border-color: rgba(234, 67, 53, .2);
+    }
+
+    .ciic.c-loc {
+      color: #4285f4;
+      background: rgba(66, 133, 244, .1);
+      border-color: rgba(66, 133, 244, .2);
+    }
+
+    .ciic.c-uw {
+      color: #14a800;
+      background: rgba(20, 168, 0, .1);
+      border-color: rgba(20, 168, 0, .2);
+    }
+
+    .ciic.c-fr {
+      color: #29b2ff;
+      background: rgba(41, 178, 255, .1);
+      border-color: rgba(41, 178, 255, .2);
+    }
+
+    .ciic.c-gh {
+      color: #fff;
+      background: rgba(255, 255, 255, .1);
+      border-color: rgba(255, 255, 255, .2);
+    }
+
+    .ciic.c-li {
+      color: #0077b5;
+      background: rgba(0, 119, 181, .1);
+      border-color: rgba(0, 119, 181, .2);
     }
 
     .cilb {
@@ -1620,8 +1693,8 @@
 
     #stbtn {
       position: fixed;
-      bottom: 2.2rem;
-      right: 2.2rem;
+      bottom: 1.2rem;
+      right: 1.2rem;
       width: 50px;
       height: 50px;
       border-radius: 50%;
@@ -1793,7 +1866,7 @@
 
       .w,
       .nw {
-        padding: 0 2rem;
+        padding: 0 16px;
       }
 
       .sh {
@@ -1896,6 +1969,7 @@
 
   <div id="ldr">
     <div class="lname">BHAVIN SEN</div>
+    <div class="lsub">AI-Powered full-stack developer</div>
     <div class="ltrack">
       <div class="lfill"></div>
     </div>
@@ -2789,21 +2863,23 @@
         <div class="rvl">
           <div class="cilist">
             <div class="ci">
-              <div class="ciic"><i class="fas fa-envelope"></i></div>
+              <div class="ciic c-gm"><i class="fas fa-envelope"></i></div>
               <div>
                 <div class="cilb">Email</div>
                 <div class="civl"><a href="mailto:bs.fullstack@gmail.com">bs.fullstack@gmail.com</a></div>
               </div>
             </div>
             <div class="ci">
-              <div class="ciic"><i class="fas fa-map-marker-alt"></i></div>
+              <div class="ciic c-loc"><i class="fas fa-location-dot"></i></div>
               <div>
                 <div class="cilb">Location</div>
                 <div class="civl">Surat, Gujarat, India</div>
               </div>
             </div>
             <div class="ci">
-              <div class="ciic"><i class="fas fa-briefcase"></i></div>
+              <div class="ciic c-uw">
+                <img src="https://cdn.simpleicons.org/upwork/14a800" alt="Upwork" width="22" height="22">
+              </div>
               <div>
                 <div class="cilb">Upwork</div>
                 <div class="civl"><a href="https://www.upwork.com/freelancers/bhavinsen"
@@ -2811,7 +2887,9 @@
               </div>
             </div>
             <div class="ci">
-              <div class="ciic"><i class="fas fa-user-tie"></i></div>
+              <div class="ciic c-fr">
+                <img src="https://cdn.simpleicons.org/freelancer/29b2ff" alt="Freelancer" width="22" height="22">
+              </div>
               <div>
                 <div class="cilb">Freelancer</div>
                 <div class="civl"><a href="https://www.freelancer.com/u/senbhavin"
@@ -2819,14 +2897,14 @@
               </div>
             </div>
             <div class="ci">
-              <div class="ciic"><i class="fab fa-github"></i></div>
+              <div class="ciic c-gh"><i class="fab fa-github"></i></div>
               <div>
                 <div class="cilb">GitHub</div>
                 <div class="civl"><a href="https://github.com/bhavinsen" target="_blank">github.com/bhavinsen</a></div>
               </div>
             </div>
             <div class="ci">
-              <div class="ciic"><i class="fab fa-linkedin-in"></i></div>
+              <div class="ciic c-li"><i class="fab fa-linkedin-in"></i></div>
               <div>
                 <div class="cilb">LinkedIn</div>
                 <div class="civl"><a href="https://www.linkedin.com/in/bhavin-sen/"
@@ -2889,9 +2967,11 @@
     let mx = 0, my = 0, rx = 0, ry = 0;
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
     (function loop() {
-      cd.style.left = mx + 'px'; cd.style.top = my + 'px';
-      rx += (mx - rx) * .1; ry += (my - ry) * .1;
-      cr.style.left = rx + 'px'; cr.style.top = ry + 'px';
+      if (window.innerWidth > 1024) {
+        cd.style.left = mx + 'px'; cd.style.top = my + 'px';
+        rx += (mx - rx) * .1; ry += (my - ry) * .1;
+        cr.style.left = rx + 'px'; cr.style.top = ry + 'px';
+      }
       requestAnimationFrame(loop);
     })();
     document.querySelectorAll('a,button,.sk,.scard,.pcard,.hst,.tb').forEach(el => {
