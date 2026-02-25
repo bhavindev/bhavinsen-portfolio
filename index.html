@@ -39,6 +39,7 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body {
@@ -46,6 +47,7 @@
       background: var(--bk);
       color: var(--tx);
       overflow-x: hidden;
+      width: 100%;
     }
 
     ::-webkit-scrollbar {
@@ -352,6 +354,7 @@
     section {
       position: relative;
       z-index: 1;
+      overflow-x: hidden;
     }
 
     .w {
@@ -665,7 +668,7 @@
       top: 50%;
       left: 50%;
       border-radius: 50%;
-      border: 1.5px solid transparent;
+      border: 1px solid transparent;
       transform: translate(-50%, -50%);
       animation: spinr linear infinite;
     }
@@ -1536,6 +1539,7 @@
     .civl a {
       color: #fff;
       text-decoration: none;
+      word-break: break-all;
     }
 
     .civl a:hover {
@@ -1576,6 +1580,7 @@
       font-size: .88rem;
       font-weight: 700;
       color: var(--mt);
+      text-align: start;
     }
 
     .cinp {
@@ -1738,6 +1743,19 @@
       opacity: 0;
       transform: translateX(40px);
       transition: opacity .75s ease, transform .75s ease;
+    }
+
+    /* Prevent mobile side-scroll during animations */
+    @media(max-width: 900px) {
+
+      .rvl,
+      .rvr {
+        transform: translateY(30px);
+      }
+
+      .gcard {
+        padding: 16px;
+      }
     }
 
     .rv.in,
@@ -1940,6 +1958,87 @@
 
       .pavail {
         margin-top: 1.5rem;
+      }
+
+      /* Reveal direction fix for mobile */
+      .rvl,
+      .rvr {
+        transform: translateY(30px) !important;
+      }
+
+      /* Fix positioning and size to prevent any scroll */
+      .pside {
+        margin-top: 30px !important;
+        gap: 2rem !important;
+      }
+
+      .pw {
+        width: 150px !important;
+        height: 150px !important;
+      }
+
+      /* Scale down rings significantly */
+      .ra {
+        width: calc(100% + 15px) !important;
+        height: calc(100% + 15px) !important;
+        border-width: 0.8px !important;
+      }
+
+      .rb {
+        width: calc(100% + 45px) !important;
+        height: calc(100% + 45px) !important;
+        border-width: 0.8px !important;
+      }
+
+      .rc {
+        width: calc(100% + 80px) !important;
+        height: calc(100% + 80px) !important;
+        border-width: 0.8px !important;
+      }
+
+      .si {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: .95rem !important;
+      }
+
+      /* Tighten the icon circle */
+      .si-up {
+        transform: translate(calc(-50% + 100px), -50%) !important;
+      }
+
+      .si-fr {
+        transform: translate(calc(-50% - 100px), -50%) !important;
+      }
+
+      .si-gh {
+        transform: translate(-50%, calc(-50% - 100px)) !important;
+      }
+
+      .si-li {
+        transform: translate(-50%, calc(-50% + 100px)) !important;
+      }
+
+      .si:hover {
+        transform: inherit !important;
+        scale: 1 !important;
+      }
+    }
+
+    @media(max-width: 425px) {
+
+      .pside,
+      .pside *,
+      .pside::before,
+      .pside::after {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transition-delay: 0s !important;
+      }
+
+      .pside {
+        transform: none !important;
       }
     }
 
